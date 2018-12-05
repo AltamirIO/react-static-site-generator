@@ -1,8 +1,8 @@
-import React from 'react'
-import { Switch, BrowserRouter as Router } from 'react-router-dom'
-import {generateSite} from './siteGenerator'
+import * as React from 'react'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { generateSite } from './siteGenerator'
 class App extends React.Component {
-  render() {
+  public render() {
     return (
       <Router>
         <Switch>
@@ -12,7 +12,7 @@ class App extends React.Component {
         </Switch>
       </Router>
     )
-  }  
+  }
 }
 
 export default App;
