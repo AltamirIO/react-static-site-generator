@@ -1,0 +1,35 @@
+{
+  "pages": {
+    "about": {
+      "title": "About Me",
+      "components": [
+        {
+          "type": "span",
+          "content": "hello"
+        },
+        {
+          "type": "div",
+          "props": {
+            "style": {
+              "backgroundColor": "blue",
+              "height": "200px",
+              "width": "300px"
+            }
+          },
+          "components": [
+            {
+              "type": "div",
+              "props": {
+                "style": {
+                  "backgroundColor": "red",
+                  "height": "150px",
+                  "width": "150px"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
