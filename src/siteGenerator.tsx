@@ -2,8 +2,7 @@ import * as React from 'react'
 import JSONConfig from './site'
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom'
 import { BulmaStyledTheme } from 'bulma-styled-components'
-import { pascalCase } from 'change-case'
-import { SiteConfigJSON } from 'types.js';
+import { SiteConfigJSON } from 'index.d.js';
 import HeadWrapper from './HeadWrapper';
 
 const siteConfig = JSONConfig as any as SiteConfigJSON
@@ -38,7 +37,7 @@ function generateComponent(component: any, index = 0, arr: any[] = []): any {
   const key = `${component.type}${index}`
   if (!isDOMElement) {
     try {
-      const Styled = pascalCase(component.type)
+      const Styled = component.type
       if (Styled in require('bulma-styled-components')) {
         console.log('This is a styled component')
         Tag = require('bulma-styled-components')[Styled]

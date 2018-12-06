@@ -1,4 +1,4 @@
-import { SiteConfigJSON } from "types";
+import { SiteConfigJSON } from "index.d";
 
 const JSONConfig: SiteConfigJSON = {
   pages: {

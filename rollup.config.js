@@ -30,7 +30,6 @@ export default [
     input: 'src/siteGenerator.tsx',
     output: [
       { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'es' },
     ],
     external,
     plugins,

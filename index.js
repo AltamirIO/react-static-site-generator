@@ -2,7 +2,6 @@
 
 var reactRouterDom = require('react-router-dom');
 var bulmaStyledComponents = require('bulma-styled-components');
-var changeCase = require('change-case');
 var React = require('react');
 
 /*! *****************************************************************************
@@ -137,7 +136,7 @@ function generateComponent(component, index, arr) {
     var key = "" + component.type + index;
     if (!isDOMElement) {
         try {
-            var Styled = changeCase.pascalCase(component.type);
+            var Styled = component.type;
             if (Styled in require('bulma-styled-components')) {
                 console.log('This is a styled component');
                 Tag = require('bulma-styled-components')[Styled];
