@@ -24,7 +24,7 @@ const external = Object.keys(pkg.dependencies || {})
 
 export default [
   {
-    input: 'src/siteGenerator.tsx',
+    input: 'src/SiteGenerator.tsx',
     output: [
       { file: pkg.main, format: 'cjs' },
     ],

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom'
 import HeadWrapper from './HeadWrapper';
-import { IOptions, SiteConfigJSON } from './SiteGenerator';
+import { IOptions, ISiteConfigJSON } from './SiteGenerator';
 import { generateComponent } from './ComponentGenerator'
 
 interface IProps {
-  config: SiteConfigJSON
+  config: ISiteConfigJSON
   options: IOptions
 }
 
@@ -13,7 +13,7 @@ interface IProps {
  * If the Site Config has a pages key, we create and render routes
  */
 export default class RouteGenerator extends React.PureComponent<IProps> {
-  render() {
+  public render() {
     const { config, options } = this.props
     if (!config || !config.pages) {
       return <div />

@@ -1,7 +1,7 @@
 {
   "name": "@altamir/react-static-site-generator",
   "main": "index.js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": false,
   "dependencies": {
     "react": "^16.6.3",
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "prepublish": "yarn build"
+    "prepublish": "yarn lint && yarn build",
+    "lint": "tslint src/**/*.ts{,x}"
   },
   "devDependencies": {
     "@types/create-react-class": "^15.6.2",
@@ -26,6 +27,9 @@
     "rollup-plugin-babel-minify": "^6.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-typescript": "^1.0.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.2.1"
   },
   "eslintConfig": {

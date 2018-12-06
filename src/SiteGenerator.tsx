@@ -10,32 +10,32 @@ export interface IOptions {
     theme: any
   }
 }
-export type SiteComponent = {
+export interface ISiteComponent {
   type: string | React.FunctionComponent<any> | React.ComponentClass<any, any>,
   content?: string,
   props?: object,
-  components?: SiteComponent[]
+  components?: ISiteComponent[]
 }
 
-type SitePage = {
+interface ISitePage {
   title: string,
-  components?: SiteComponent[]
+  components?: ISiteComponent[]
 }
 
-export type SiteConfigJSON = {
-  components?: SiteComponent[]
+export interface ISiteConfigJSON {
+  components?: ISiteComponent[]
   pages?: {
-    main: SitePage,
-    [key: string]: SitePage
+    main: ISitePage,
+    [key: string]: ISitePage
   }
 }
 
 /**
  * Generates static components based on a Javascript Object configuration module
- * @param {SiteConfigJSON} config Configuration for static components 
+ * @param {ISiteConfigJSON} config Configuration for static components 
  * @param {IOptions} options Customizations for the site generation. This can include Custom UI libraries, and theming modules
  */
-export default function SiteGenerator(config: SiteConfigJSON, options: IOptions = {}) {
+export default function SiteGenerator(config: ISiteConfigJSON, options: IOptions = {}) {
   /**
    * The configuration file can have either a pages key or a components key. It MUST have one or the other.
    */
