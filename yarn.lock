@@ -448,13 +448,6 @@ builtin-modules@^2.0.0:
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-2.0.0.tgz#60b7ef5ae6546bd7deefa74b08b62a43a232648e"
   integrity sha512-3U5kUA5VPsRUA3nofm/BXX7GVHKfxz0hOBAPxXrIvHzlDRkQVqEn6yi8QJegxl4LzOHLdvb7XF5dVawa/VVYBg==
 
-bulma-styled-components@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bulma-styled-components/-/bulma-styled-components-1.0.2.tgz#d52a884c397a95d8770bc67e7712c3759325e401"
-  integrity sha512-D/p8bf/0zJfQS9wQnB33CwMTbKA+yjqRFj9NoVAxSc3S5mmlDVK7tR8Uz6FX0Yud4T6nA8eSpPFAHTt3Px19Xg==
-  dependencies:
-    polished "^1.9.2"
-
 chalk@^2.0.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
@@ -888,11 +881,6 @@ path-to-regexp@^1.7.0:
   integrity sha1-Wf3g9DW62suhA6hOnTvGTpa5k30=
   dependencies:
     isarray "0.0.1"
-
-polished@^1.9.2:
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-1.9.3.tgz#d61b8a0c4624efe31e2583ff24a358932b6b75e1"
-  integrity sha512-4NmSD7fMFlM8roNxs7YXPv7UFRbYzb0gufR5zBxJLRzY54+zFsavxBo6zsQzP9ep6Hh3pC2pTyrpSTBEaB6IkQ==
 
 postcss-value-parser@^3.3.0:
   version "3.3.1"

@@ -16,9 +16,6 @@ const plugins = [
   babel(),
   typescript(),
   // Finally we make it tiny so it loads faster.
-  isProduction
-    ? minify({ comments: false })
-    : null,
 ].filter(Boolean)
 
 

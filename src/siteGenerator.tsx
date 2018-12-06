@@ -1,97 +1,68 @@
 import * as React from 'react'
-import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom'
-import HeadWrapper from './HeadWrapper';
+import RouteGenerator from './RouteGenerator';
+import { generateComponent } from './componentGenerator';
 
-interface IOptions {
-  componentLibrary?: object
-  themeProvider?: {
-    package: string
-    module: string
-    themePropName?: string
-    theme?: any
+export interface IOptions {
+  componentLibraries?: object[]
+  themeProvider?: any
+  theme?: {
+    themePropName: string
+    theme: any
+  }
+}
+export type SiteComponent = {
+  type: string | React.FunctionComponent<any> | React.ComponentClass<any, any>,
+  content?: string,
+  props?: object,
+  components?: SiteComponent[]
+}
+
+type SitePage = {
+  title: string,
+  components?: SiteComponent[]
+}
+
+export type SiteConfigJSON = {
+  components?: SiteComponent[]
+  pages?: {
+    main: SitePage,
+    [key: string]: SitePage
   }
 }
 
-export default function generateSite(config: any, options: IOptions = {}) {
-  if (!config.pages) {
-    throw TypeError('A RSSG object must have a "page" key')
+export default function generateSite(config: SiteConfigJSON, options: IOptions = {}) {
+  if (!config.pages && !config.components) {
+    throw TypeError('A RSSG object must have a "pages" OR "components" key')
   }
-  if (!options.componentLibrary) {
-    options.componentLibrary = require('bulma-styled-components')
-  }
+
   const defaultOptions: IOptions = {
-    componentLibrary: require('bulma-styled-components'),
-    themeProvider: {
-      package: 'bulma-styled-components',
-      module: 'BulmaStyledTheme',
-    },
+    componentLibraries: [],
     ...options
   }
 
-  const RouterWrapper = (
-    <Router>
-      <Switch>
-        {Object.keys(config.pages).map((page) => {
-          return <Route key={page} path={`/${page}`} component={() => <HeadWrapper pageTitle={config.pages[page].title}>{generateComponent(config.pages[page].components, defaultOptions)}</HeadWrapper>} />
-        })}
-        <Route path="/" exact={true} component={() => <HeadWrapper pageTitle={config.pages.main.title}>{generateComponent(config.pages.main.components, defaultOptions)}</HeadWrapper>} />
-        <Redirect to="/" />
-      </Switch>
-    </Router>
-  )
-  if (options.themeProvider) {
-    let theme = {}
-    if (options.themeProvider.themePropName && options.themeProvider.theme) {
+  let children = null
+  if (config.pages) {
+    children = <RouteGenerator config={config} options={defaultOptions} />
+  } else if (config.components) {
+    children = <div>{generateComponent(config.components, options)}</div>
+  }
+  let theme = {}
+  if (options.theme && options.themeProvider) {
+    if (options.theme.themePropName && options.theme.theme) {
       theme = {
-        [options.themeProvider.themePropName]: options.themeProvider.theme
+        [options.theme.themePropName]: options.theme.theme
       }
     }
-    const Provider = require(options.themeProvider.package)[options.themeProvider.module]
+    const Provider = options.themeProvider.module
+    console.log('provider', Provider)
     return (
       <Provider {...theme}>
-        {RouterWrapper}
+        {children}
       </Provider>
     )
   }
-  return RouterWrapper
+  return children
 }
 
-function generateComponent(component: any, options: IOptions, index = 0): any {
-  if (!component) {
-    return <div />
-  }
-  if (Array.isArray(component)) {
-    return component.map((c, i) => generateComponent(c, options, i))
-  }
-  let Tag = component.type
-  let isDOMElement = false
-  if (Tag.toLowerCase() === Tag) {
-    isDOMElement = true
-  }
-  const key = `${component.type}${index}`
-  if (!isDOMElement) {
-    try {
-      const Styled = component.type
-      if (options.componentLibrary && Styled in options.componentLibrary) {
-        console.log('This is a styled component')
-        Tag = options.componentLibrary[Styled]
-        if (!Tag) {
-          throw TypeError(`${Tag} does not exist in bulma styled components`)
-        }
-      }
-      const element = <Tag />
-      if (!element || !React.isValidElement(element)) {
-        throw TypeError(`${component.type} is not a valid react component`)
-      }
-    } catch (e) {
-      console.log('err', e)
-      return <div key={key} />
-    }
-  }
-  const el = React.createElement(Tag, { ...(component.props || {}), ...{ key } }, component.content || generateComponent(component.components, options, index + 1))
-  if (React.isValidElement(el)) {
-    return el
-  }
-  return <div />
-}
+
 
