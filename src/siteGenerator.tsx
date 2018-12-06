@@ -51,7 +51,7 @@ function generateComponent(component: any, index = 0, arr: any[] = []): any {
       return <div key={key} />
     }
   }
-  const el = React.createElement(Tag, {...(component.props || {}), ...{ key }}, [component.content] || generateComponent(component.components))
+  const el = React.createElement(Tag, {...(component.props || {}), ...{ key }}, component.content || generateComponent(component.components))
   if (React.isValidElement(el)) {
     return el
   }
