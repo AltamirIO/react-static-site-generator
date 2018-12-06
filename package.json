@@ -1,14 +1,18 @@
 {
   "name": "@altamir/react-static-site-generator",
   "main": "index.js",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Altamir React Static Site Generator facilitates the creation of static sites by those with limited development experience. Leveraging the flexibility of React, it can create beautiful static sites with very few lines of code.",
   "private": false,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AltamirIO/react-static-site-generator"
+  },
   "contributors": [{
     "name": "Spencer Stolworthy",
     "email": "sstolworthy@altamir.io",
-    "url": "https://github.com/sdstolworthy"
+    "url": "https://www.linkedin.com/in/spencer-stolworthy/"
   }],
   "keywords": ["static", "react", "website", "builder", "generator", "site"],
   "dependencies": {
