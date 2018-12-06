@@ -8,49 +8,70 @@ Right now, RSSG depends on `bulma-styled-components`, a package created by Altam
 
 ## Use
 
+### Installation
+
+1. Navigate into any React.js project and run `npm install @altamir/react-static-site-generator` or `yarn add @altamir/react-static-site-generator`.
+
+2. Import the module where it will be used.
+```jsx
+import React from 'react'
+import siteGenerator from '@altamir/react-static-site-generator'
+```
+
+3. Generate static components
+```jsx
+import ReactDOM from 'react-dom';
+import siteGenerator from '@altamir/react-static-site-generator'
+import * as Bulma from 'bulma-styled-components'
+
+ReactDOM.render(siteGenerator({
+  pages: {
+    main: {
+      title: 'Home Page',
+      components: [{
+        type: Bulma.Notification,
+        content: 'hello'
+      }]
+    },
+    about: {
+      title: 'About Me',
+      content: ''
+    }
+  }
+}, {
+  componentLibraries: [Bulma],
+  themeProvider: Bulma.BulmaStyledTheme
+}), document.getElementById('root'));
+```
+
+### Configuration
+
 Usage right now is very simplistic. Basically, RSSG is just accepting a JSON markup of a website, and then traversing that and spitting out a React SPA.
 
 Here is an example of a site object that RSSG can take in:
-```
-{
+
+```javascript
+siteGenerator({
   pages: {
-    about: {
-      components: [{
-        content: "hello",
-        type: "span"
-      }, {
-        components: [{
-          props: {
-            style: {
-              backgroundColor: "red",
-              height: "150px",
-              width: "150px"
-            }
-          },
-          type: "div"
-        }],
-        props: {
-          style: {
-            backgroundColor: "blue",
-            height: "200px",
-            width: "300px"
-          }
-        },
-        type: "div"
-      }],
-      title: "About Me"
-    },
     main: {
+      title: 'Home Page',
       components: [{
-        content: "this is a test",
-        type: "Notification"
-      }],
-      title: "Home Page"
+        type: Bulma.Notification,
+        content: 'hello'
+      }]
+    },
+    about: {
+      title: 'About Me',
+      content: ''
     }
   }
-}
+}, {
+  componentLibraries: [Bulma],
+  themeProvider: Bulma.BulmaStyledTheme
+})
 ```
+
 
 ## Contributing
 
-Please Contribute! You can start by making this readme not terrible :)
+Please Contribute! Please remember to comment your code. This project deals largely in generics, so comments are enormously helpful in understanding what is going on.
