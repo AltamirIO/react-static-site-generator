@@ -1,7 +1,7 @@
 {
   "name": "@altamir/react-static-site-generator",
   "main": "index.js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": false,
   "dependencies": {
     "bulma-styled-components": "^1.0.2",
