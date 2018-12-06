@@ -25,7 +25,6 @@ interface ISitePage {
 export interface ISiteConfigJSON {
   components?: ISiteComponent[]
   pages?: {
-    main: ISitePage,
     [key: string]: ISitePage
   }
 }
@@ -66,7 +65,6 @@ export default function SiteGenerator(config: ISiteConfigJSON, options: IOptions
       }
     }
     const Provider = options.themeProvider.module
-    console.log('provider', Provider)
     return (
       <Provider {...theme}>
         {children}

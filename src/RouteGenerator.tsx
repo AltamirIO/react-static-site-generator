@@ -15,8 +15,12 @@ interface IProps {
 export default class RouteGenerator extends React.PureComponent<IProps> {
   public render() {
     const { config, options } = this.props
-    if (!config || !config.pages) {
+    if (!config || !config.pages || Object.keys(config.pages).length < 1) {
       return <div />
+    }
+    let main = config.pages.main
+    if (!main) {
+      main = config.pages[Object.keys(config.pages)[0]]
     }
     return (
       <Router>
@@ -24,7 +28,7 @@ export default class RouteGenerator extends React.PureComponent<IProps> {
           {Object.keys(config.pages || {}).map((page) => {
             return <Route key={page} path={`/${page}`} component={() => <HeadWrapper pageTitle={config.pages[page].title}>{generateComponent(config.pages[page].components, options)}</HeadWrapper>} />
           })}
-          <Route path="/" exact={true} component={() => <HeadWrapper pageTitle={config.pages.main.title}>{generateComponent(config.pages.main.components, options)}</HeadWrapper>} />
+          <Route path="/" exact={true} component={() => <HeadWrapper pageTitle={main.title}>{generateComponent(main.components, options)}</HeadWrapper>} />
           <Redirect to="/" />
         </Switch>
       </Router>
