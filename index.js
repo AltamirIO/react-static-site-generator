@@ -21,7 +21,7 @@ var HeadWrapper = /** @class */ (function (_super) {
 function generateSite(config, options) {
     if (options === void 0) { options = {}; }
     var _a;
-    if (!config.pages || !Array.isArray(config.pages)) {
+    if (!config.pages) {
         throw TypeError('A RSSG object must have a "page" key');
     }
     if (!options.componentLibrary) {
