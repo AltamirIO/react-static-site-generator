@@ -8,7 +8,6 @@
   "linterOptions": {
     "exclude": [
       "**/*.json",
-      "src/serviceWorker.js",
       "config/**/*.js",
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js"

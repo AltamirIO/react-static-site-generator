@@ -1,5 +1,3 @@
-declare module 'bulma-styled-components'
-
 type SiteComponent = {
   type: string,
   content?: string,
