@@ -1,5 +1,7 @@
 {
   "name": "react-site-generator",
+  "main": "index.js",
+  "module": "index.esm.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -49,9 +51,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "build": "rollup -c rollup.config.js"
   },
   "devDependencies": {
     "@types/create-react-class": "^15.6.2",
@@ -60,6 +60,11 @@
     "@types/react": "^16.7.13",
     "@types/react-dom": "^16.0.11",
     "@types/react-router-dom": "^4.3.1",
+    "rollup": "^0.67.4",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-babel-minify": "^6.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-typescript": "^1.0.0",
     "typescript": "^3.2.1"
   },
   "eslintConfig": {

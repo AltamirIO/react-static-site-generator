@@ -1,20 +1,25 @@
 import * as React from 'react'
 import JSONConfig from './site'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom'
+import { BulmaStyledTheme } from 'bulma-styled-components'
 import { pascalCase } from 'change-case'
 import { SiteConfigJSON } from 'types.js';
 import HeadWrapper from './HeadWrapper';
 
 const siteConfig = JSONConfig as any as SiteConfigJSON
-export function generateSite(config = siteConfig) {
+export default function generateSite(config = siteConfig) {
   return (
-    <Switch>
-      {Object.keys(config.pages).map((page) => {
-        return <Route key={page} path={`/${page}`} component={() => <HeadWrapper pageTitle={config.pages[page].title}>{generateComponent(config.pages[page].components)}</HeadWrapper>} />
-      })}
-      <Route path="/" exact={true} component={() => <HeadWrapper pageTitle={config.pages.main.title}>{generateComponent(config.pages.main.components)}</HeadWrapper>} />
-      <Redirect to="/" />
-    </Switch>
+    <BulmaStyledTheme>
+      <Router>
+        <Switch>
+          {Object.keys(config.pages).map((page) => {
+            return <Route key={page} path={`/${page}`} component={() => <HeadWrapper pageTitle={config.pages[page].title}>{generateComponent(config.pages[page].components)}</HeadWrapper>} />
+          })}
+          <Route path="/" exact={true} component={() => <HeadWrapper pageTitle={config.pages.main.title}>{generateComponent(config.pages.main.components)}</HeadWrapper>} />
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+    </BulmaStyledTheme>
   )
 }
 
@@ -50,7 +55,7 @@ function generateComponent(component: any, index = 0, arr: any[] = []): any {
       return <div key={key} />
     }
   }
-  const el = React.createElement(Tag, {...(component.props || {}), ...{ key }}, component.content || generateComponent(component.components))
+  const el = React.createElement(Tag, { ...(component.props || {}), ...{ key } }, component.content || generateComponent(component.components))
   if (React.isValidElement(el)) {
     return el
   }
