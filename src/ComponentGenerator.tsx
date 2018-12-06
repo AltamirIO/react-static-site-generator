@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SiteComponent, IOptions } from './SiteGenerator'
+import { ISiteComponent, IOptions } from './SiteGenerator'
 
 /**
  * generateComponent generates static components from a simple JSON schema.
@@ -7,7 +7,7 @@ import { SiteComponent, IOptions } from './SiteGenerator'
  * @param options configuration options, including custom UI libraries
  * @param index an index for unique keys
  */
-export function generateComponent(component: SiteComponent | SiteComponent[], options: IOptions, index = 0): any {
+export function generateComponent(component: ISiteComponent | ISiteComponent[], options: IOptions, index = 0): any {
   if (!component) {
     return <div />
   }
