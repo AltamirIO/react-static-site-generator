@@ -5,14 +5,14 @@ declare module "*.json" {
 
 type SiteComponent = {
   type: string,
-  content: string,
-  props: object,
-  components: SiteComponent[]
+  content?: string,
+  props?: object,
+  components?: SiteComponent[]
 }
 
 type SitePage = {
   title: string,
-  components: SiteComponent[]
+  components?: SiteComponent[]
 }
 
 export type SiteConfigJSON = {

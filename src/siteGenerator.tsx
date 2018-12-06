@@ -1,19 +1,18 @@
 import * as React from 'react'
-import * as JSONConfig from './site.json'
+import JSONConfig from './site'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { pascalCase } from 'change-case'
 import { SiteConfigJSON } from 'types.js';
-import ComponentChecker from './ComponentChecker.js';
-const config = JSONConfig as any as SiteConfigJSON
-export function generateSite() {
-  const defaultComponent = () => generateComponent(config.pages.main.components)
+import HeadWrapper from './HeadWrapper';
+
+const siteConfig = JSONConfig as any as SiteConfigJSON
+export function generateSite(config = siteConfig) {
   return (
     <Switch>
       {Object.keys(config.pages).map((page) => {
-        const component = () => generateComponent(config.pages[page].components)
-        return <Route key={page} path={`/${page}`} component={component} />
+        return <Route key={page} path={`/${page}`} component={() => <HeadWrapper pageTitle={config.pages[page].title}>{generateComponent(config.pages[page].components)}</HeadWrapper>} />
       })}
-      <Route path="/" exact={true} component={defaultComponent} />
+      <Route path="/" exact={true} component={() => <HeadWrapper pageTitle={config.pages.main.title}>{generateComponent(config.pages.main.components)}</HeadWrapper>} />
       <Redirect to="/" />
     </Switch>
   )
@@ -27,7 +26,7 @@ function generateComponent(component: any, index = 0, arr: any[] = []): any {
     return component.map((c, i, a) => generateComponent(c, i, a))
   }
   let Tag = component.type
-  let isDOMElement: boolean = false
+  let isDOMElement = false
   if (Tag.toLowerCase() === Tag) {
     isDOMElement = true
   }
@@ -43,7 +42,7 @@ function generateComponent(component: any, index = 0, arr: any[] = []): any {
         }
       }
       const element = <Tag />
-      if (!element || (!ComponentChecker.isReactComponent(element) && !ComponentChecker.isElement(element))) {
+      if (!element || !React.isValidElement(element)) {
         throw TypeError(`${component.type} is not a valid react component`)
       }
     } catch (e) {
