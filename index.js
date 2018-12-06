@@ -96,15 +96,19 @@ var RouteGenerator = /** @class */ (function (_super) {
     }
     RouteGenerator.prototype.render = function () {
         var _a = this.props, config = _a.config, options = _a.options;
-        if (!config || !config.pages) {
+        if (!config || !config.pages || Object.keys(config.pages).length < 1) {
             return React.createElement("div", null);
+        }
+        var main = config.pages.main;
+        if (!main) {
+            main = config.pages[Object.keys(config.pages)[0]];
         }
         return (React.createElement(reactRouterDom.BrowserRouter, null,
             React.createElement(reactRouterDom.Switch, null,
                 Object.keys(config.pages || {}).map(function (page) {
                     return React.createElement(reactRouterDom.Route, { key: page, path: "/" + page, component: function () { return React.createElement(HeadWrapper, { pageTitle: config.pages[page].title }, generateComponent(config.pages[page].components, options)); } });
                 }),
-                React.createElement(reactRouterDom.Route, { path: "/", exact: true, component: function () { return React.createElement(HeadWrapper, { pageTitle: config.pages.main.title }, generateComponent(config.pages.main.components, options)); } }),
+                React.createElement(reactRouterDom.Route, { path: "/", exact: true, component: function () { return React.createElement(HeadWrapper, { pageTitle: main.title }, generateComponent(main.components, options)); } }),
                 React.createElement(reactRouterDom.Redirect, { to: "/" }))));
     };
     return RouteGenerator;
@@ -146,7 +150,6 @@ function SiteGenerator(config, options) {
                 _a);
         }
         var Provider = options.themeProvider.module;
-        console.log('provider', Provider);
         return (React.createElement(Provider, tslib_1.__assign({}, theme), children));
     }
     /**
