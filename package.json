@@ -1,7 +1,7 @@
 {
   "name": "@altamir/react-static-site-generator",
   "main": "index.js",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "dependencies": {
     "bulma-styled-components": "^1.0.2",
@@ -12,7 +12,8 @@
     "tslib": "^1.9.3"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "prepublish": "yarn build"
   },
   "devDependencies": {
     "@types/create-react-class": "^15.6.2",

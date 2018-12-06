@@ -13,7 +13,7 @@ interface IOptions {
 }
 
 export default function generateSite(config: any, options: IOptions = {}) {
-  if (!config.pages || !Array.isArray(config.pages)) {
+  if (!config.pages) {
     throw TypeError('A RSSG object must have a "page" key')
   }
   if (!options.componentLibrary) {
