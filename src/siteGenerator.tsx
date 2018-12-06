@@ -1,16 +1,21 @@
 import * as React from 'react'
-import * as config from './site.json'
-import { Route } from 'react-router-dom'
-// import ComponentChecker from './ComponentChecker.js';
+import * as JSONConfig from './site.json'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { pascalCase } from 'change-case'
+import { SiteConfigJSON } from 'types.js';
+import ComponentChecker from './ComponentChecker.js';
+const config = JSONConfig as any as SiteConfigJSON
 export function generateSite() {
-  console.log(config)
+  const defaultComponent = () => generateComponent(config.pages.main.components)
   return (
-    <React.Fragment>
+    <Switch>
       {Object.keys(config.pages).map((page) => {
         const component = () => generateComponent(config.pages[page].components)
         return <Route key={page} path={`/${page}`} component={component} />
       })}
-    </React.Fragment>
+      <Route path="/" exact={true} component={defaultComponent} />
+      <Redirect to="/" />
+    </Switch>
   )
 }
 
@@ -21,18 +26,35 @@ function generateComponent(component: any, index = 0, arr: any[] = []): any {
   if (Array.isArray(component)) {
     return component.map((c, i, a) => generateComponent(c, i, a))
   }
-  const Tag = component.type
+  let Tag = component.type
+  let isDOMElement: boolean = false
+  if (Tag.toLowerCase() === Tag) {
+    isDOMElement = true
+  }
   const key = `${component.type}${index}`
-  // if (!ComponentChecker.isElement(Tag)) {
-  //   try {
-  //     // Tag = require('bulma-styled-components')
-  //     if (!Tag || !ComponentChecker.isReactComponent(Tag)) {
-  //       throw TypeError(`${component.type} is not a valid react component`)
-  //     }
-  //   } catch (e) {
-  //     return <div key={key} />
-  //   }
-  // }
-  return (<Tag key={key} {...(component.props || {})}>{component.content || generateComponent(component.components)}</Tag>)
+  if (!isDOMElement) {
+    try {
+      const Styled = pascalCase(component.type)
+      if (Styled in require('bulma-styled-components')) {
+        console.log('This is a styled component')
+        Tag = require('bulma-styled-components')[Styled]
+        if (!Tag) {
+          throw TypeError(`${Tag} does not exist in bulma styled components`)
+        }
+      }
+      const element = <Tag />
+      if (!element || (!ComponentChecker.isReactComponent(element) && !ComponentChecker.isElement(element))) {
+        throw TypeError(`${component.type} is not a valid react component`)
+      }
+    } catch (e) {
+      console.log('err', e)
+      return <div key={key} />
+    }
+  }
+  const el = React.createElement(Tag, {...(component.props || {}), ...{ key }}, [component.content] || generateComponent(component.components))
+  if (React.isValidElement(el)) {
+    return el
+  }
+  return <div />
 }
 

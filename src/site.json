@@ -1,5 +1,14 @@
 {
   "pages": {
+    "main": {
+      "title": "Home Page",
+      "components": [
+        {
+          "type": "Notification",
+          "content": "this is a test"
+        }
+      ]
+    },
     "about": {
       "title": "About Me",
       "components": [

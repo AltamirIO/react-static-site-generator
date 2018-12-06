@@ -1,0 +1,1 @@
+declare module 'bulma-styled-components'

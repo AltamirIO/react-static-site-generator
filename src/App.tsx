@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { generateSite } from './siteGenerator'
+import { BulmaStyledTheme } from 'bulma-styled-components'
+
 class App extends React.Component {
   public render() {
     return (
-      <Router>
-        <Switch>
-          <div>
-            {generateSite()}
-          </div>
-        </Switch>
-      </Router>
+      <BulmaStyledTheme>
+        <Router>
+          {generateSite()}
+        </Router>
+      </BulmaStyledTheme>
     )
   }
 }

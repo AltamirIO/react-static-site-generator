@@ -1,4 +1,4 @@
-declare module "site.json" {
+declare module "*.json" {
   const value: SiteConfigJSON;
   export default value;
 }
@@ -15,6 +15,9 @@ type SitePage = {
   components: SiteComponent[]
 }
 
-type SiteConfigJSON = {
-  pages: SitePage
+export type SiteConfigJSON = {
+  pages: {
+    main: SitePage,
+    [key: string]: SitePage
+  }
 }
